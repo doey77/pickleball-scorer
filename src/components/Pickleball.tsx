@@ -3,17 +3,13 @@ import Scoreboard from './Scoreboard';
 import { IGame } from '../interfaces/IGame';
 import Winner from './Winner';
 import ScoreButton from './ScoreButton';
+import initialGame from '../util/initialGame';
 
 /**
  * Master pickleball component, holding state of the app
  */
 export default function PickleBall() {
-    const [game, setGame] = useState<IGame>({
-        scoreA: 0,
-        scoreB: 0,
-        lastServe: true,
-        servingA: true
-      });
+      const [game, setGame] = useState<IGame>(initialGame);
     
       const [winner, setWinner] = useState('');
       
@@ -64,9 +60,30 @@ export default function PickleBall() {
         }
       }
 
+      const resetGame = (confirmDialog:boolean) => {
+        let confirmed = false;
+        if (confirmDialog) {
+            if (window.confirm('Are you sure you want to reset?')) {
+                confirmed = true;
+            }
+        } else {
+            confirmed = true;
+        }
+
+        if (confirmed) {
+            setGame({...initialGame});
+            setWinner('');
+        }        
+      }
+
     
       if (winner) {
-          return (<Winner winner={winner}/>)
+          return (
+              <>
+          <Winner winner={winner}/>
+          <button onClick={() => resetGame(false)}>Reset Game</button>
+          </>
+          )
       }
     
       return (
@@ -75,6 +92,8 @@ export default function PickleBall() {
           <ScoreButton score={score} teamA={true} />
           <br /> <br />
           <ScoreButton score={score} teamA={false} />
+          <br /> <br /> <br />
+          <button onClick={() => resetGame(true)}>Reset Game</button>
         </>
       );
 }
