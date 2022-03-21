@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Scoreboard from './Scoreboard';
 import { IGame } from '../interfaces/IGame';
+import Winner from './Winner';
+import ScoreButton from './ScoreButton';
 
 /**
  * Master pickleball component, holding state of the app
@@ -14,22 +16,6 @@ export default function PickleBall() {
       });
     
       const [winner, setWinner] = useState('');
-    
-      const renderScore = () => {
-        let serveLife = 1;
-        if (game.lastServe)
-          serveLife = 2;
-    
-        if (game.servingA) 
-          return `${game.scoreA} - ${game.scoreB} - ${serveLife}`;
-        return `${game.scoreB} - ${game.scoreA} - ${serveLife}`;
-      };
-    
-      const whosServing = () => {
-        if (game.servingA)
-          return 'Team A is serving';
-        return 'Team B is serving';
-      }
       
       /**
        * @param AScored If team A scored
@@ -77,27 +63,18 @@ export default function PickleBall() {
           setWinner('Team B');
         }
       }
-    
-      let scoreboard = (
-        <>
-        <Scoreboard game={game} />
-          <p>{whosServing()}</p>
-          <p>{renderScore()}</p>
-          <button onClick={() => score(true)}>Team A scored</button>
-          <br /> <br />
-          <button onClick={() => score(false)}>Team B scored</button>
-        </>
-      )
+
     
       if (winner) {
-        scoreboard = <>
-          <p>{winner} wins!</p>
-        </>
+          return (<Winner winner={winner}/>)
       }
     
       return (
-        <div className="App">
-          {scoreboard}
-        </div>
+        <>
+          <Scoreboard game={game} />
+          <ScoreButton score={score} teamA={true} />
+          <br /> <br />
+          <ScoreButton score={score} teamA={false} />
+        </>
       );
 }

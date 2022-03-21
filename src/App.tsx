@@ -3,6 +3,8 @@ import "./App.css"
 
 export default function App() {
   return (
-    <PickleBall />
+    <div className="App">
+      <PickleBall />
+    </div>
   );
 }
