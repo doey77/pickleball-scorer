@@ -88,10 +88,8 @@ export default function PickleBall() {
     
       return (
         <>
-          <Scoreboard game={game} />
-          <ScoreButton score={score} teamA={true} />
-          <br /> <br />
-          <ScoreButton score={score} teamA={false} />
+          <h1>Pickleball!</h1>
+          <Scoreboard game={game} scoreFunc={score} />
           <br /> <br /> <br />
           <button onClick={() => resetGame(true)}>Reset Game</button>
         </>

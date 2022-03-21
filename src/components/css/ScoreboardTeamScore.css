@@ -1,0 +1,12 @@
+.score-box {
+    border: 1px solid black;
+    font-size: 14pt;
+}
+
+.a-color {
+    background-color: lightcoral;
+}
+
+.b-color {
+    background-color: lightskyblue;
+}
