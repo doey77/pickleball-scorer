@@ -1,10 +1,9 @@
 type WinnerProps = {
-    winner: string
+  winner: string
 }
 
 export default function Winner(props: WinnerProps) {
-    
-    return (
-        <p>{props.winner} wins!</p>
-    )
+  const { winner } = props
+
+  return <p>{winner} wins!</p>
 }
