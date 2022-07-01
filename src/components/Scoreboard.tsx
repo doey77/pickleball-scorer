@@ -30,6 +30,8 @@ export default function Scoreboard(props: ScoreboardProps) {
         serveLife={serveLife}
         scoreFunc={scoreFunc}
       />
+      <br />
+      {/* TODO add score display here */}
     </>
   )
 }

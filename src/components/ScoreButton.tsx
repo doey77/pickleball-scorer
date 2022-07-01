@@ -34,7 +34,7 @@ export default function ScoreButton(props: ScoreButtonProps) {
       className="score-btn"
       onClick={() => onScore()}
     >
-      {teamName} scored
+      {teamName} rally win
     </button>
   )
 }

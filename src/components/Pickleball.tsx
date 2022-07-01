@@ -1,14 +1,18 @@
 import { useState } from 'react'
+import Cookies from 'js-cookie'
 import Scoreboard from './Scoreboard'
 import { IGame } from '../interfaces/IGame'
 import Winner from './Winner'
 import initialGame from '../util/initialGame'
+import { getGameCookie } from '../helpers/gameCookie'
 
 /**
  * Master pickleball component, holding state of the app
  */
 export default function PickleBall() {
-  const [game, setGame] = useState<IGame>(initialGame)
+  const [gameHistory, setGameHistory] = useState<IGame[]>([getGameCookie()])
+
+  const game = gameHistory[0]
 
   const [winner, setWinner] = useState('')
 
@@ -22,6 +26,16 @@ export default function PickleBall() {
     ) {
       setWinner('Team B')
     }
+  }
+
+  const updateGame = (gameUpdate: IGame) => {
+    // update game history
+    const newGameHistory = [...gameHistory]
+    newGameHistory.unshift(gameUpdate)
+    setGameHistory(newGameHistory)
+
+    // update game cookie
+    Cookies.set('game', JSON.stringify(gameUpdate))
   }
 
   /**
@@ -58,7 +72,7 @@ export default function PickleBall() {
         }
       }
     }
-    setGame(gameUpdate)
+    updateGame(gameUpdate)
     checkForWin(gameUpdate)
   }
 
@@ -74,9 +88,17 @@ export default function PickleBall() {
     }
 
     if (confirmed) {
-      setGame({ ...initialGame })
+      setGameHistory([{ ...initialGame }])
       setWinner('')
     }
+  }
+
+  const isUndoDisabled = gameHistory.length < 2
+
+  const undo = () => {
+    const newGameHistory = [...gameHistory]
+    newGameHistory.shift()
+    setGameHistory(newGameHistory)
   }
 
   if (winner) {
@@ -94,6 +116,10 @@ export default function PickleBall() {
     <>
       <h1>Pickleball!</h1>
       <Scoreboard game={game} scoreFunc={score} />
+      <br /> <br /> <br />
+      <button type="button" disabled={isUndoDisabled} onClick={undo}>
+        Undo
+      </button>
       <br /> <br /> <br />
       <button type="button" onClick={() => resetGame(true)}>
         Reset Game
