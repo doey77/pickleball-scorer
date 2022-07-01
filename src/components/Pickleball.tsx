@@ -116,7 +116,6 @@ export default function PickleBall() {
     <>
       <h1>Pickleball!</h1>
       <Scoreboard game={game} scoreFunc={score} />
-      <br /> <br /> <br />
       <button type="button" disabled={isUndoDisabled} onClick={undo}>
         Undo
       </button>
@@ -124,6 +123,7 @@ export default function PickleBall() {
       <button type="button" onClick={() => resetGame(true)}>
         Reset Game
       </button>
+      <br /> <br />
     </>
   )
 }

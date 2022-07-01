@@ -1,6 +1,7 @@
 .score-box {
     border: 1px solid black;
     font-size: 14pt;
+    height: 30vh;
 }
 
 .a-color {
