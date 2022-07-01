@@ -8,9 +8,17 @@ type ScoreboardProps = {
 
 export default function Scoreboard(props: ScoreboardProps) {
   const { game, scoreFunc } = props
+  const { scoreA, scoreB, servingA } = game
 
   let serveLife = 1
   if (game.lastServe) serveLife = 2
+
+  let score = ''
+  if (servingA) {
+    score = `${scoreA} - ${scoreB} - ${serveLife}`
+  } else {
+    score = `${scoreB} - ${scoreA} - ${serveLife}`
+  }
 
   return (
     <>
@@ -31,7 +39,7 @@ export default function Scoreboard(props: ScoreboardProps) {
         scoreFunc={scoreFunc}
       />
       <br />
-      {/* TODO add score display here */}
+      <h3>{score}</h3>
     </>
   )
 }
