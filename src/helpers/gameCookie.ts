@@ -24,5 +24,5 @@ export const getGameCookie = (): IGame => {
  * @param game Game data
  */
 export const setGameCookie = (game: IGame) => {
-  Cookies.set(name, JSON.stringify(game))
+  Cookies.set(name, JSON.stringify(game), { expires: 1 })
 }
