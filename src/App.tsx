@@ -1,10 +1,13 @@
-import "./App.css";
-import PickleBall from "./components/Pickleball";
+import './App.css'
+import PickleBall from './components/Pickleball'
+import { ViewportProvider } from './context/viewport'
 
 export default function App() {
   return (
     <div className="App">
-      <PickleBall />
+      <ViewportProvider>
+        <PickleBall />
+      </ViewportProvider>
     </div>
-  );
+  )
 }
