@@ -7,6 +7,7 @@ import { IGame } from '../interfaces/IGame'
 import Winner from './Winner'
 import initialGame from '../util/initialGame'
 import { getGameCookie, setGameCookie } from '../helpers/gameCookie'
+import { getNameCookie, setNameCookie } from '../helpers/nameCookie'
 
 /**
  * Master pickleball component, holding state of the app
@@ -14,8 +15,8 @@ import { getGameCookie, setGameCookie } from '../helpers/gameCookie'
 export default function PickleBall() {
   const [gameHistory, setGameHistory] = useState<IGame[]>([getGameCookie()])
 
-  const [aName, setAName] = useState('Team A')
-  const [bName, setBName] = useState('Team B')
+  const [aName, setAName] = useState(getNameCookie().a)
+  const [bName, setBName] = useState(getNameCookie().b)
 
   const game = gameHistory[0]
 
@@ -109,11 +110,13 @@ export default function PickleBall() {
   }
 
   const handleEditTeamNames = () => {
-    const teamA = window.prompt('Enter name for Team A')
-    const teamB = window.prompt('Enter name for Team B')
+    const teamA = window.prompt('Enter name for Team A') ?? 'Team A'
+    const teamB = window.prompt('Enter name for Team B') ?? 'Team B'
 
-    setAName(teamA ?? 'Team A')
-    setBName(teamB ?? 'Team B')
+    setAName(teamA)
+    setBName(teamB)
+
+    setNameCookie({ a: teamA ?? '', b: teamB })
   }
 
   if (winner) {
