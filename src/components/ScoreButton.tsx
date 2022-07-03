@@ -1,14 +1,14 @@
 import Button from '@mui/material/Button'
-import './css/ScoreButton.css'
 
 type ScoreButtonProps = {
   score: (AScored: boolean) => void
   teamA: boolean
+  fontSize: number
   teamName: string
 }
 
 export default function ScoreButton(props: ScoreButtonProps) {
-  const { score, teamA, teamName } = props
+  const { score, teamA, fontSize, teamName } = props
 
   const onScore = () => {
     score(teamA)
@@ -19,7 +19,7 @@ export default function ScoreButton(props: ScoreButtonProps) {
       variant="contained"
       color="secondary"
       type="button"
-      className="score-btn"
+      style={{ fontSize: `${fontSize - 2}pt` }}
       onClick={() => onScore()}
     >
       {teamName} rally win

@@ -1,7 +1,8 @@
 import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
-import './css/ScoreboardTeamScore.css'
+import Typography from '@mui/material/Typography'
 import ScoreButton from './ScoreButton'
+import { useViewport } from '../context/viewport'
 
 type ScoreboardTeamScoreProps = {
   score: number
@@ -15,9 +16,18 @@ type ScoreboardTeamScoreProps = {
 export default function ScoreboardTeamScore(props: ScoreboardTeamScoreProps) {
   const { score, scoreFunc, serveLife, serving, teamA, teamName } = props
 
+  const { width } = useViewport()
+
   let servingName = ''
   if (serving) {
     servingName = ` - Serve ${serveLife.toString()}`
+  }
+
+  const fontWidth = width / 40
+  let fontSize = 14
+
+  if (fontWidth > 14) {
+    fontSize = fontWidth
   }
 
   return (
@@ -25,7 +35,6 @@ export default function ScoreboardTeamScore(props: ScoreboardTeamScoreProps) {
       sx={{
         backgroundColor: teamA ? 'lightcoral' : 'lightskyblue',
         border: '1px solid black',
-        fontSize: 'larger',
       }}
     >
       <br />
@@ -33,11 +42,18 @@ export default function ScoreboardTeamScore(props: ScoreboardTeamScoreProps) {
         direction="column"
         justifyContent="center"
         alignItems="center"
-        spacing={3}
+        spacing={3 + width / 150}
       >
-        <p>{teamName + servingName}</p>
-        <p>{score}</p>
-        <ScoreButton score={scoreFunc} teamA={teamA} teamName={teamName} />
+        <Typography style={{ fontSize: `${fontSize}pt` }}>
+          {teamName + servingName}
+        </Typography>
+        <Typography style={{ fontSize: `${fontSize}pt` }}>{score}</Typography>
+        <ScoreButton
+          score={scoreFunc}
+          teamA={teamA}
+          teamName={teamName}
+          fontSize={fontSize}
+        />
       </Stack>
       <br />
     </Box>
