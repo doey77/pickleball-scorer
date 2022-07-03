@@ -111,13 +111,13 @@ export default function PickleBall() {
   }
 
   const handleEditTeamNames = () => {
-    const teamA = window.prompt('Enter name for Team A') ?? 'Team A'
-    const teamB = window.prompt('Enter name for Team B') ?? 'Team B'
+    const teamA = window.prompt('Enter name for Team A') ?? aName
+    const teamB = window.prompt('Enter name for Team B') ?? bName
 
     setAName(teamA)
     setBName(teamB)
 
-    setNameCookie({ a: teamA ?? '', b: teamB })
+    setNameCookie({ a: teamA, b: teamB })
   }
 
   if (winner) {
