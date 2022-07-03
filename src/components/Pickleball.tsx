@@ -96,6 +96,7 @@ export default function PickleBall() {
     if (confirmed) {
       setGameHistory([{ ...initialGame }])
       setWinner('')
+      setGameCookie(initialGame)
     }
   }
 
