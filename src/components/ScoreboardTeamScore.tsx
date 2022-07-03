@@ -42,7 +42,7 @@ export default function ScoreboardTeamScore(props: ScoreboardTeamScoreProps) {
         direction="column"
         justifyContent="center"
         alignItems="center"
-        spacing={3 + width / 150}
+        spacing={1 + width / 150}
       >
         <Typography style={{ fontSize: `${fontSize}pt` }}>
           {teamName + servingName}
