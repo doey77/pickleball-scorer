@@ -107,6 +107,7 @@ export default function PickleBall() {
     const newGameHistory = [...gameHistory]
     newGameHistory.shift()
     setGameHistory(newGameHistory)
+    setGameCookie(newGameHistory[0])
   }
 
   const handleEditTeamNames = () => {
