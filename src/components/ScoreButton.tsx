@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import Button from '@mui/material/Button'
 import './css/ScoreButton.css'
 
 type ScoreButtonProps = {
@@ -6,12 +6,8 @@ type ScoreButtonProps = {
   teamA: boolean
 }
 
-const delay = (time: number) =>
-  new Promise((resolve) => setTimeout(resolve, time))
-
 export default function ScoreButton(props: ScoreButtonProps) {
   const { score, teamA } = props
-  const [disabledBtn, setDisabledBtn] = useState(false)
 
   let teamName = ''
 
@@ -22,19 +18,18 @@ export default function ScoreButton(props: ScoreButtonProps) {
   }
 
   const onScore = () => {
-    setDisabledBtn(true)
     score(teamA)
-    delay(1000).then(() => setDisabledBtn(false))
   }
 
   return (
-    <button
+    <Button
+      variant="contained"
+      color="secondary"
       type="button"
-      disabled={disabledBtn}
       className="score-btn"
       onClick={() => onScore()}
     >
       {teamName} rally win
-    </button>
+    </Button>
   )
 }

@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import Cookies from 'js-cookie'
+import Button from '@mui/material/Button'
 import Scoreboard from './Scoreboard'
 import { IGame } from '../interfaces/IGame'
 import Winner from './Winner'
 import initialGame from '../util/initialGame'
-import { getGameCookie } from '../helpers/gameCookie'
+import { getGameCookie, setGameCookie } from '../helpers/gameCookie'
 
 /**
  * Master pickleball component, holding state of the app
@@ -20,11 +21,13 @@ export default function PickleBall() {
     // Win at 11. Must win by 2
     if (gameUpdate.scoreA >= 11 && gameUpdate.scoreA - 1 > gameUpdate.scoreB) {
       setWinner('Team A')
+      setGameCookie(initialGame)
     } else if (
       gameUpdate.scoreB >= 11 &&
       gameUpdate.scoreB - 1 > gameUpdate.scoreA
     ) {
       setWinner('Team B')
+      setGameCookie(initialGame)
     }
   }
 
@@ -105,9 +108,13 @@ export default function PickleBall() {
     return (
       <>
         <Winner winner={winner} />
-        <button type="button" onClick={() => resetGame(false)}>
-          Reset Game
-        </button>
+        <Button
+          variant="contained"
+          type="button"
+          onClick={() => resetGame(false)}
+        >
+          New Game
+        </Button>
       </>
     )
   }
@@ -116,13 +123,24 @@ export default function PickleBall() {
     <>
       <h1>Pickleball!</h1>
       <Scoreboard game={game} scoreFunc={score} />
-      <button type="button" disabled={isUndoDisabled} onClick={undo}>
+      <br />
+      <Button
+        variant="contained"
+        type="button"
+        disabled={isUndoDisabled}
+        onClick={undo}
+      >
         Undo
-      </button>
-      <br /> <br /> <br />
-      <button type="button" onClick={() => resetGame(true)}>
+      </Button>
+      <br /> <br />
+      <Button
+        variant="contained"
+        color="error"
+        type="button"
+        onClick={() => resetGame(true)}
+      >
         Reset Game
-      </button>
+      </Button>
       <br /> <br />
     </>
   )
