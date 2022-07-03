@@ -4,18 +4,11 @@ import './css/ScoreButton.css'
 type ScoreButtonProps = {
   score: (AScored: boolean) => void
   teamA: boolean
+  teamName: string
 }
 
 export default function ScoreButton(props: ScoreButtonProps) {
-  const { score, teamA } = props
-
-  let teamName = ''
-
-  if (teamA) {
-    teamName = 'Team A'
-  } else {
-    teamName = 'Team B'
-  }
+  const { score, teamA, teamName } = props
 
   const onScore = () => {
     score(teamA)

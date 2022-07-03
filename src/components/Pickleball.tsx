@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import { useState } from 'react'
 import Cookies from 'js-cookie'
 import Button from '@mui/material/Button'
@@ -13,6 +14,9 @@ import { getGameCookie, setGameCookie } from '../helpers/gameCookie'
 export default function PickleBall() {
   const [gameHistory, setGameHistory] = useState<IGame[]>([getGameCookie()])
 
+  const [aName, setAName] = useState('Team A')
+  const [bName, setBName] = useState('Team B')
+
   const game = gameHistory[0]
 
   const [winner, setWinner] = useState('')
@@ -20,13 +24,13 @@ export default function PickleBall() {
   const checkForWin = (gameUpdate: IGame) => {
     // Win at 11. Must win by 2
     if (gameUpdate.scoreA >= 11 && gameUpdate.scoreA - 1 > gameUpdate.scoreB) {
-      setWinner('Team A')
+      setWinner(aName)
       setGameCookie(initialGame)
     } else if (
       gameUpdate.scoreB >= 11 &&
       gameUpdate.scoreB - 1 > gameUpdate.scoreA
     ) {
-      setWinner('Team B')
+      setWinner(bName)
       setGameCookie(initialGame)
     }
   }
@@ -82,7 +86,6 @@ export default function PickleBall() {
   const resetGame = (confirmDialog: boolean) => {
     let confirmed = false
     if (confirmDialog) {
-      // eslint-disable-next-line no-alert
       if (window.confirm('Are you sure you want to reset?')) {
         confirmed = true
       }
@@ -104,6 +107,14 @@ export default function PickleBall() {
     setGameHistory(newGameHistory)
   }
 
+  const handleEditTeamNames = () => {
+    const teamA = window.prompt('Enter name for Team A')
+    const teamB = window.prompt('Enter name for Team B')
+
+    setAName(teamA ?? 'Team A')
+    setBName(teamB ?? 'Team B')
+  }
+
   if (winner) {
     return (
       <>
@@ -122,7 +133,7 @@ export default function PickleBall() {
   return (
     <>
       <h1>Pickleball!</h1>
-      <Scoreboard game={game} scoreFunc={score} />
+      <Scoreboard game={game} scoreFunc={score} aName={aName} bName={bName} />
       <br />
       <Button
         variant="contained"
@@ -131,6 +142,15 @@ export default function PickleBall() {
         onClick={undo}
       >
         Undo
+      </Button>
+      <br /> <br />
+      <Button
+        variant="contained"
+        color="info"
+        type="button"
+        onClick={handleEditTeamNames}
+      >
+        Edit Team Names
       </Button>
       <br /> <br />
       <Button

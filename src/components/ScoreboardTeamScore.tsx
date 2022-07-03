@@ -1,3 +1,5 @@
+import Stack from '@mui/material/Stack'
+import Box from '@mui/material/Box'
 import './css/ScoreboardTeamScore.css'
 import ScoreButton from './ScoreButton'
 
@@ -18,15 +20,26 @@ export default function ScoreboardTeamScore(props: ScoreboardTeamScoreProps) {
     servingName = ` - Serve ${serveLife.toString()}`
   }
 
-  let teamColor = 'a-color'
-  if (!teamA) teamColor = 'b-color'
-
   return (
-    <div className={`score-box ${teamColor}`}>
-      <p>{teamName + servingName}</p>
-      <p>{score}</p>
-      <ScoreButton score={scoreFunc} teamA={teamA} />
-      <br /> <br />
-    </div>
+    <Box
+      sx={{
+        backgroundColor: teamA ? 'lightcoral' : 'lightskyblue',
+        border: '1px solid black',
+        fontSize: 'larger',
+      }}
+    >
+      <br />
+      <Stack
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        spacing={3}
+      >
+        <p>{teamName + servingName}</p>
+        <p>{score}</p>
+        <ScoreButton score={scoreFunc} teamA={teamA} teamName={teamName} />
+      </Stack>
+      <br />
+    </Box>
   )
 }

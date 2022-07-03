@@ -5,11 +5,13 @@ import ScoreboardTeamScore from './ScoreboardTeamScore'
 
 type ScoreboardProps = {
   game: IGame
+  aName: string
+  bName: string
   scoreFunc: (AScored: boolean) => void
 }
 
 export default function Scoreboard(props: ScoreboardProps) {
-  const { game, scoreFunc } = props
+  const { game, aName, bName, scoreFunc } = props
   const { scoreA, scoreB, servingA } = game
 
   const { width } = useViewport()
@@ -32,7 +34,7 @@ export default function Scoreboard(props: ScoreboardProps) {
           <ScoreboardTeamScore
             score={game.scoreA}
             teamA
-            teamName="Team A"
+            teamName={aName}
             serving={game.servingA}
             serveLife={serveLife}
             scoreFunc={scoreFunc}
@@ -42,7 +44,7 @@ export default function Scoreboard(props: ScoreboardProps) {
           <ScoreboardTeamScore
             score={game.scoreB}
             teamA={false}
-            teamName="Team B"
+            teamName={bName}
             serving={!game.servingA}
             serveLife={serveLife}
             scoreFunc={scoreFunc}
