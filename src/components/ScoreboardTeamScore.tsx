@@ -1,6 +1,6 @@
 import Stack from '@mui/material/Stack'
-import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import Card from '@mui/material/Card'
 import ScoreButton from './ScoreButton'
 import { useViewport } from '../context/viewport'
 
@@ -31,11 +31,9 @@ export default function ScoreboardTeamScore(props: ScoreboardTeamScoreProps) {
   }
 
   return (
-    <Box
-      sx={{
-        backgroundColor: teamA ? 'lightcoral' : 'lightskyblue',
-        border: '1px solid black',
-      }}
+    <Card
+      elevation={16}
+      sx={{ backgroundColor: teamA ? 'lightcoral' : 'lightskyblue' }}
     >
       <br />
       <Stack
@@ -56,6 +54,6 @@ export default function ScoreboardTeamScore(props: ScoreboardTeamScoreProps) {
         />
       </Stack>
       <br />
-    </Box>
+    </Card>
   )
 }
